@@ -3,10 +3,9 @@ import { searchBar, sortEspecsAZ } from "../redux/reducer";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
-// const backendURL = "https://medconnectback-production.up.railway.app";
-// const specialitiesURL = `${backendURL}/specializations`;
-const local =
-  "https://medconnectback-production.up.railway.app/specializations";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const specializationsURL =
+  `${backendURL}/specializations`;
 
 export default function SearchBar() {
   const [name, setName] = useState("");
@@ -18,7 +17,7 @@ export default function SearchBar() {
   const handleSearch = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`${local}?name=${name}`);
+      const response = await axios.get(`${specializationsURL}?name=${name}`);
       dispatch(searchBar(response.data));
       setSearchPerformed(true);
     } catch (error) {

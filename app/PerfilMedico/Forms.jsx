@@ -8,10 +8,11 @@ import {useSelector, useDispatch} from "react-redux"
 import axios from "axios"
 import { getSpeciality, getCities } from "../redux/reducer";
 import { Option } from 'antd/es/mentions';
-const local = "http://localhost:3001/specializations";
-const localCites = "http://localhost:3001/cities";
-const localMedic = "http://localhost:3001/medics/create"
 
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const specializationsURL = `${backendURL}/specializations`;
+const citiesURL = `${backendURL}/cities`;
+const createMedicsURL = `${backendURL}/medics/create`;
 
 
 export default function Forms({ userLocal }) {
@@ -29,8 +30,8 @@ export default function Forms({ userLocal }) {
 
   async function fetchData() {
     try {
-      const response = await axios.get(local);
-      const resCities = await axios.get(localCites)
+      const response = await axios.get(specializationsURL);
+      const resCities = await axios.get(citiesURL)
 
       dispatch(getSpeciality(response.data));
       dispatch(getCities(resCities.data))
@@ -55,7 +56,7 @@ const {first_name, last_name, ...a} = values;
 
 const body = {...a, userId:userLocal.id}
 
-const res= await axios.post(localMedic, body);
+const res= await axios.post(createMedicsURL, body);
 
 }
 

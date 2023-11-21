@@ -5,6 +5,9 @@ import axios from "axios";
 import styles from "./Medicos.module.css";
 import Link from "next/link";
 
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const medicsURL = `${backendURL}/medics`;
+
 export default function Medicos({ data }) {
   const medicosRE = useSelector((state) => state.speciality.AllMedicos);
 
@@ -12,7 +15,7 @@ export default function Medicos({ data }) {
   const fetchMedicos = async () => {
     try {
       const response = await axios.get(
-        "https://medconnectback-production.up.railway.app/medics"
+        medicsURL
       );
       dispatch(getMedicos(response.data));
     } catch (error) {

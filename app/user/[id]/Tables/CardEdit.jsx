@@ -9,6 +9,9 @@ import { useState } from "react";
 const { Item } = Form;
 const { Option } = Select;
 
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const appointmentURL = `${backendURL}/appointment`;
+
 export default function CardEdit({
   horarios,
   dia,
@@ -30,7 +33,7 @@ export default function CardEdit({
 
     if (fechaFormateada.length) {
       axios
-        .get("https://medconnectback-production.up.railway.app/appointment")
+        .get(appointmentURL)
         .then((res) => {
           const diasHorasFiltradas = res.data.filter(
             (cita) =>
@@ -79,7 +82,7 @@ export default function CardEdit({
 
     axios
       .put(
-        "https://medconnectback-production.up.railway.app/appointment/" + id,
+        appointmentURL + id,
         {
           scheduledDate: fechaFormateada,
           scheduledTime: scheduledTime,

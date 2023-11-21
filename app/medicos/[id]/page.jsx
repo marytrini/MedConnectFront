@@ -6,10 +6,10 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Warning from "../../components/warning/Warning";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
+
+const backendURL = process.env.PUBLIC_BACKEND_URL;
 const medicsURL = `${backendURL}/medics`;
-const local = "https://medconnectback-production.up.railway.app/medics";
+
 
 export default function Page() {
   const [error, setError] = useState({
@@ -22,7 +22,7 @@ export default function Page() {
 
   async function fetchData(id) {
     try {
-      const response = await axios.get(`${local}/${id}`);
+      const response = await axios.get(`${medicsURL}/${id}`);
       setData(response.data);
     } catch (error) {
       setError({ ...error, text: error.message, alert: true });

@@ -8,11 +8,10 @@ import Dropzone from "react-dropzone";
 import { SHA1 } from "crypto-js";
 import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
-const local =
-  "https://medconnectback-production.up.railway.app/specializations";
-  import { useRouter } from "next/navigation";
-  import { useSelector } from "react-redux";
-const backendURL = "https://medconnectback-production.up.railway.app";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+
+const backendURL = process.env.PUBLIC_BACKEND_URL;
 const specializationsURL = `${backendURL}/specializations`;
 
 export default function SpecialtyForm() {

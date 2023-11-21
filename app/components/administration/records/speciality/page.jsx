@@ -6,7 +6,7 @@ import Warning from "@/app/components/warning/Warning";
 import Success from "@/app/components/success/Success";
 import Forms from "./form";
 
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
 const specializationsURL = `${backendURL}/specializations`;
 
 export default function Especialidades() {
@@ -42,8 +42,7 @@ export default function Especialidades() {
   }, [isDelete]);
 
   const deleteEsp = (id, deletedAt) => {
-    //const url = "https://medconnectback-production.up.railway.app/specializations/";
-
+    
     if (deletedAt !== null) {
       axios.patch(`${specializationsURL}/${id}`, { withCredentials: true });
     } else {

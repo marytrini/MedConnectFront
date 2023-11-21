@@ -3,7 +3,8 @@ import style from "./Forms.module.css"
 import FormItem from 'antd/es/form/FormItem';
 import axios from "axios"
 const format = 'HH:mm'
-const localHorario = 'http://localhost:3001/schedule/create'
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const medicsHorario = `${backendURL}/schedule/create`;
 
 export default function FormHor({filtromedico}) {
 
@@ -17,7 +18,7 @@ const values = {
   'day_of_week' : fieldsValue['day_of_week'],
   'medicoId': filtromedico[0].id
 }
-const res= await axios.post(localHorario, values);
+const res= await axios.post(medicsHorario, values);
 console.log(res.data);
 
 window.location.reload();

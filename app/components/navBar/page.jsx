@@ -10,7 +10,9 @@ import { getUser } from "@/app/redux/login";
 import { getLocalUser } from "@/app/redux/login";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+
 export default function Navbar() {
+  
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
   const { logStatus } = useSelector((state) => state);
@@ -51,16 +53,16 @@ export default function Navbar() {
   const UserLogout = links[4];
 
   const logoutGoogle = () => {
-    //window.open("https://medconnectback-production.up.railway.app/auth/logout", "_self");
+    
     window.open(
-      "https://medconnectback-production.up.railway.app/auth/logout",
+      "https://medconnect.rammerbot.com/auth/logout",
       "_self"
     );
   };
   const logoutLocal = () => {
-    //window.open("https://medconnectback-production.up.railway.app/auth/logoutLocal", "_self");
+    
     window.open(
-      "https://medconnectback-production.up.railway.app/auth/logoutLocal",
+      "https://medconnect.rammerbot.com/auth/logoutLocal",
       "_self"
     );
   };
@@ -69,7 +71,7 @@ export default function Navbar() {
   };
   useEffect(() => {
     fetch(
-      "https://medconnectback-production.up.railway.app/auth/login/success",
+      "https://medconnect.rammerbot.com/auth/login/success",
       {
         method: "GET",
         credentials: "include",
@@ -90,7 +92,7 @@ export default function Navbar() {
       .catch((err) => {});
 
     fetch(
-      "https://medconnectback-production.up.railway.app/auth/loginn/success",
+      "https://medconnect.rammerbot.com/auth/loginn/success",
       {
         method: "GET",
         credentials: "include",

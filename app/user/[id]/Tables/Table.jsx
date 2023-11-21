@@ -6,6 +6,10 @@ import { obtenerHorarios } from "./obtenerHorarios.js";
 import CardEdit from "./CardEdit";
 import Success from "../../../components/success/Success";
 
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const medicsURL = `${backendURL}/medics`;
+const appointmentURL = `${backendURL}/appointment`;
+
 export default function Table({ userCitas, setPut, put }) {
   const [horarios, setHorarios] = useState([]);
   const [open, setOpen] = useState(false);
@@ -18,7 +22,7 @@ export default function Table({ userCitas, setPut, put }) {
 
   const editCita = async (Med_id, status, Cita_id) => {
     const res = await axios.get(
-      "https://medconnectback-production.up.railway.app/medics"
+      medicsURL
     );
 
     const medico = res.data.find((med) => med.user.id === Med_id);
@@ -41,7 +45,7 @@ export default function Table({ userCitas, setPut, put }) {
   const [totalCitas, setTotalCitas] = useState([]);
   useEffect(() => {
     axios
-      .get("https://medconnectback-production.up.railway.app/appointment")
+      .get(appointmentURL)
       .then((res) => {
         setTotalCitas(res.data);
       });

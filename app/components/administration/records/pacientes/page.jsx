@@ -5,6 +5,11 @@ import styles from "./page.module.css";
 import Warning from "../../../warning/Warning";
 import Success from "../../../success/Success";
 import EditPaciente from "./editPaciente";
+
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const patientsURL = `${backendURL}/patients`;
+const usersURL = `${backendURL}/users`;
+
 export default function Pacientes() {
   const [pacientes, setPacientes] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
@@ -23,7 +28,7 @@ export default function Pacientes() {
     const fetchPatients = async () => {
       try {
         const patientsResponse = await axios.get(
-          "https://medconnectback-production.up.railway.app/patients"
+          patientsURL
         );
 
         const patientsData = patientsResponse.data;
@@ -40,8 +45,8 @@ export default function Pacientes() {
 
   const deletePaci = (id, isUser, email) => {
     const url = isUser
-      ? "https://medconnectback-production.up.railway.app/users/"
-      : "https://medconnectback-production.up.railway.app/patients/";
+      ? usersURL
+      : patientsURL;
 
     count == 2 &&
       axios

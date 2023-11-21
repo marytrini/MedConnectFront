@@ -7,14 +7,13 @@ import FormItem from "antd/es/form/FormItem";
 import style from "./page.module.css";
 import { useRouter } from "next/navigation";
 
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const local = "https://medconnectback-production.up.railway.app/medics/create";
-const localR =
-  "https://medconnectback-production.up.railway.app/medics/register";
+// const local = "https://medconnectback-production.up.railway.app/medics/create";
+// const localR =
+//   "https://medconnectback-production.up.railway.app/medics/register";
 
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
 const createMedicURL = `${backendURL}/medics/create`;
-const registerURL = `${backendURL}/medics/register`;
+const registerURL = `${backendURL}/auth/register`;
 
 export default function UserLogin() {
   const nav = useRouter()

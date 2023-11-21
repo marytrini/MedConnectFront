@@ -6,7 +6,8 @@ import style from "./Forms.module.css"
 import FormItem from 'antd/es/form/FormItem';
 import {  useRef, useState  } from "react"
 let index = 0;
-const localCal="http://localhost:3001/medicoCalification"
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const medicsCal=`${backendURL}/medicoCalification`
 
 export default function FormCal({filtromedicos}) {
   const [items, setItems] = useState([]);
@@ -27,7 +28,7 @@ export default function FormCal({filtromedicos}) {
   const  onSubmit =async(values) => {
     const body = {...values, medicoId:filtromedicos[0].id}
 
-    const res= await axios.post(localCal, body);
+    const res= await axios.post(medicsCal, body);
     console.log(res.data);
   }
 

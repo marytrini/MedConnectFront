@@ -6,11 +6,11 @@ import { useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import Warning from "../../../warning/Warning";
 import styles from "./page.module.css";
-// const backendURL = process.env.PUBLIC_BACKEND_URL;
-const backendURL = "https://medconnectback-production.up.railway.app";
-const authRegisterURL = `${backendURL}/auth/register`;
-const local = "https://medconnectback-production.up.railway.app/auth/register";
 import { useRouter } from "next/navigation";
+
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const authRegisterURL = `${backendURL}/auth/register`;
+
 
 
 

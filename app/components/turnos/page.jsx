@@ -16,6 +16,10 @@ import { useDispatch } from "react-redux";
 import "dayjs/locale/es";
 import locale from "antd/es/date-picker/locale/es_ES";
 
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const medicsURL = `${backendURL}/medics`;
+const appointmentURL = `${backendURL}/appointment`;
+
 export default function Calendary() {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -25,7 +29,7 @@ export default function Calendary() {
   const especialidad = info.especialidad && info.especialidad;
   const getMedicos = async () => {
     const medicos = await axios.get(
-      "https://medconnectback-production.up.railway.app/medics"
+      medicsURL
     );
 
     const filter = medicos.data.filter((med) => {
@@ -77,7 +81,7 @@ export default function Calendary() {
 
       if (fechaFormateada.length) {
         axios
-          .get("http://localhost:3001/appointment")
+          .get(appointmentURL)
           .then((res) => {
             const diasHorasFiltradas = res.data.filter(
               (cita) =>

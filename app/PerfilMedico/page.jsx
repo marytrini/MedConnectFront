@@ -13,6 +13,10 @@ import FormCal from "./FormCal"
 import FormsPut from "./FormsPut";
 import TableHorarios from "./TableHorarios"
 
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const medicsURL = `${backendURL}/medics`;
+const appointmentURL = `${backendURL}/appointment`;
+const horariosURL = `${backendURL}/schedule`;
 
 export default function PerfilMedico() {
   // const [user, setUser] = useState({});
@@ -30,12 +34,11 @@ export default function PerfilMedico() {
   const filtromedico = medicos.filter(e=>e.user.id===userLocal.id)
   const filtroHorarios = horarios?.filter(e=>e.medico.phone===filtromedico[0]?.phone)
   
-  
 
   useEffect(() => {
   if(!medicos.id){
     axios
-        .get("http://localhost:3001/medics")
+        .get(medicsURL)
         .then((res) => {
           setMedicos(res.data);
         })
@@ -47,7 +50,7 @@ export default function PerfilMedico() {
 
     if (!citas.id) {
       axios
-        .get("https://medconnectback-production.up.railway.app/appointment")
+        .get(appointmentURL)
         .then((res) => {
           setCitas(res.data);
         })
@@ -58,7 +61,7 @@ export default function PerfilMedico() {
 
     if (!horarios.id){
       axios
-      .get("http://localhost:3001/schedule")
+      .get(horariosURL)
       .then((res)=>{
         setHorarios(res.data);
       })

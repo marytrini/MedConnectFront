@@ -4,67 +4,54 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Cita from "./Cita";
+
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const appointmentURL = `${backendURL}/appointment`;
+
 export default function Table() {
   const [citas, setCitas] = useState([]);
-
+  const [isLoading, setLoading] = useState(true);
   const userLocal = useSelector((state) => state.login.userLocal);
 
   useEffect(() => {
     if (!citas.id) {
       axios
-        .get("https://medconnectback-production.up.railway.app/appointment")
+        .get(appointmentURL)
         .then((res) => {
           setCitas(res.data);
+          setLoading(false); // Marcar la carga como completa
         })
         .catch((error) => {
           console.error(error);
+          setLoading(false); // Marcar la carga como completa, incluso si hay error
         });
     }
-  }, []);
-  const getCitasPerfil = citas?.filter(
-    (e) => e.user.first_name === userLocal?.first_name
-  );
-  console.log("get citas perfil: ", getCitasPerfil);
+  }, [citas.id]);
 
-
-    
-    
-
-    useEffect(() => {
-       
-        if (!citas.id){
-            axios.get('http://localhost:3001/appointment')
-            .then(res=>{
-                setCitas(res.data)
-            })
-            .catch(error =>{
-              console.error(error);
-            })
-        }
-    }, []);
-    const getCitasPerfil = citas?.filter((e)=>e.user.first_name === userLocal?.first_name)
-    
-    
-
- 
-    const handleCheckChange = async ( citaId, scheduledDate, scheduledTime, status) =>{
-      
-          
-          await axios.put(`http://localhost:3001/appointment/${citaId}`,{ 
-
-          scheduledDate: scheduledDate,
-          scheduledTime: scheduledTime,
-          status: status,
-        }
-      )
-      .then((response) => {
-        console.log("Estado de la cita actualizado:", response.data);
-      })
-      .catch((error) => {
-        // Manejar el error en caso de que la solicitud PUT falle
-        console.error("Error al actualizar el estado de la cita:", error);
-      });
+  const getCitasPerfil = () => {
+    return citas?.filter((e) => e.user.first_name === userLocal?.first_name);
   };
+
+  const handleCheckChange = async (citaId, scheduledDate, scheduledTime, status) => {
+    try {
+      const response = await axios.put(`${appointmentURL}/${citaId}`, {
+        scheduledDate: scheduledDate,
+        scheduledTime: scheduledTime,
+        status: status,
+      });
+      console.log("Estado de la cita actualizado:", response.data);
+    } catch (error) {
+      console.error("Error al actualizar el estado de la cita:", error);
+      // Podrías agregar lógica para manejar errores aquí
+    }
+  };
+
+  useEffect(() => {
+    const citasP = getCitasPerfil();
+    console.log("get citas perfil: ", citasP);
+  }, [citas]);
+
+
 
   return (
     <div

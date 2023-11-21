@@ -9,6 +9,10 @@ import axios from "axios";
 // import { useRouter } from 'next/navigation';
 import { useParams } from "next/navigation";
 import Success from "@/app/components/success/Success";
+
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const usersURL = `${backendURL}/users`;
+
 export default function User() {
   // const router = useRouter();
   const { id } = useParams();
@@ -17,7 +21,7 @@ export default function User() {
 
   useEffect(() => {
     axios
-      .get("https://medconnectback-production.up.railway.app/users")
+      .get(usersURL)
       .then((res) => {
         const citas = res.data;
 

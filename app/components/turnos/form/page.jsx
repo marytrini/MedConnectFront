@@ -10,6 +10,13 @@ const { TextArea } = Input;
 import { PhoneOutlined } from "@ant-design/icons";
 import Image from "next/image";
 
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const medicsURL = `${backendURL}/medics`;
+const citiesURL = `${backendURL}/cities`;
+const patientsURL = `${backendURL}/patients`;
+const appointmentURL = `${backendURL}/appointment/create`;
+const paymentURL = `${backendURL}/payment/create-order`;
+
 export default function UserLogin() {
   const nav = useRouter()
   const { logStatus, speciality } = useSelector((state) => state);
@@ -25,7 +32,7 @@ export default function UserLogin() {
 
   useEffect(() => {
     !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-    axios.get("http://localhost:3001/medics").then((res) => {
+    axios.get(medicsURL).then((res) => {
       dispatch(getMedicos(res.data));
     });
   }, [logStatus]);
@@ -96,7 +103,7 @@ export default function UserLogin() {
 
   const cityGetter = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/cities");
+      const response = await axios.get(citiesURL);
       const citiesData = response.data;
 
       if (citiesData && schedule && Object.keys(schedule).length > 0) {
@@ -134,7 +141,7 @@ export default function UserLogin() {
         };
         if (schedule && logStatus.userStatus) {
           const testing = axios
-            .post("http://localhost:3001/patients/create", patient)
+            .post(`${patientsURL}/create`, patient)
             .then((res) => {
               const appointment = {
                 ...schedule,
@@ -142,7 +149,7 @@ export default function UserLogin() {
                 patientId: res.data.id,
               };
               return axios.post(
-                "http://localhost:3001/appointment/create",
+                appointmentURL,
                 appointment
               );
             })
@@ -155,7 +162,7 @@ export default function UserLogin() {
                 unit_price: 500,
               };
               axios
-                .post("http://localhost:3001/payment/create-order", mp)
+                .post(paymentURL, mp)
                 .then((res) => {
                   console.log(res.data.init_point);
                   window.open(res.data.init_point, "_blank");

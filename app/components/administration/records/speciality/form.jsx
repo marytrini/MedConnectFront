@@ -9,33 +9,9 @@ import { SHA1 } from "crypto-js";
 import Success from "@/app/components/success/Success";
 import Warning from "@/app/components/warning/Warning";
 import { useRouter } from "next/navigation";
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
 const specializationsURL = `${backendURL}/specializations`;
 import { useSelector } from "react-redux";
-
-export default function form({ info }) {
-  const nav = useRouter()
-  const { logStatus } = useSelector((state) => state);
-  const [registered, setRegistered] = useState(false);
-  const [image, setImage] = useState({ array: [info.url] });
-  const [loading, setLoading] = useState("");
-  const [url, setUrl] = useState("");
-  const [publicId, setPublicId] = useState("");
-  const [error, setError] = useState({
-    alert: false,
-    text: "Error al crear especialidad, el servidor esta caido o la especialidad ya existe",
-  });
-  const [success, setSuccess] = useState({
-    alert: false,
-    text: "Especialidad creada exitosamente",
-  });
-
-  
-  useEffect(()=>{
-    !logStatus.logStatus && nav.push("/components/forms/UserLogin");
-
-  },[logStatus])
-
 
 
 export default function form({info}) {
@@ -59,7 +35,7 @@ export default function form({info}) {
   const onSubmit = (values) => {
     setRegistered(!registered);
     const { description, name } = values;
-    //const local = `https://medconnectback-production.up.railway.app/specializations/${info.id}`;
+    
     const data = `${specializationsURL}/${info.id}`;
     const body = {
       description,
@@ -201,81 +177,7 @@ export default function form({info}) {
                    
                     />
               </Form.Item>
-
-              
-              {/* <Container >
-
-    <div className={styles.container + " top-1/3 "}>
-      <Warning
-        alert={error.alert}
-        text={error.text}
-        FinishFailed={FinishFailed}
-      ></Warning>
-      <Success
-        alert={success.alert}
-        text={success.text}
-        success={successFunc}
-      ></Success>
-      <h1 className={styles.title}>Editar Especialidad</h1>
-      <Form
-        className={styles.form}
-        labelCol={{ span: 6 }}
-        wrapperCol={{ span: 15 }}
-        layout="horizontal"
-        form={form}
-        onFinish={(values) => {
-          onSubmit(values);
-          form.resetFields();
-          setImage({ array: [] });
-        }}
-      >
-        <Form.Item
-          name="name"
-          label="Especialidad"
-          rules={[
-            { required: true, message: "Por favor ingrese una especialidad" },
-          ]}
-          hasFeedback
-        >
-          <Input name="name" defaultValue={info.name} />
-        </Form.Item>
-
-        {/* <Container >
-
-                <div className="flex justify-center">
-
-                <Dropzone
-                className="dropzone"
-                onDrop={handleDrop}
-                onChange={(e)=>setImage(e.target.value)}
-                value={image}
-                rules={[
-                  {required:true,
-                  message:"Por favor ingrese una imagen"},
-                ]}
-                >
-                  {({getRootProps, getInputProps}) => (
-                    <section >
-                      <div {...getRootProps({className:"dropzone"})}>
-
-                    <input {...getInputProps()} />
-                    <span className="cursor-pointer text-3xl">📂</span>
-                    <p className="cursor-pointer" >Suelta tu imagen aqui, O da click para seleccionar</p>
-
-                      </div>
-                    </section>
-                  )}
-                </Dropzone>
-                </div>
-                <div className={styles.container_img}>
-                <button className='active:outline-none text-white bg-red-700 hover:bg-red-800 active:ring-4 active:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:active:ring-red-900' onClick={deleteImag} >Delete</button>
-                
-                {imagePreview()}
-                </div>
-                
-              </Container> */}
-
-
+                          
               <Form.Item name="description" label="Descripción"
                 rules={[
                   {required:true,

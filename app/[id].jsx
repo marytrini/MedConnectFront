@@ -9,10 +9,14 @@ export default function Detail({ data }) {
     </div>
   );
 }
+
+const backendURL = process.env.PUBLIC_BACKEND_URL;
+const specializationsURL = `${backendURL}/specializations`;
+
 export async function getStaticPaths() {
   try {
     const res = await fetch(
-      "https://medconnectback-production.up.railway.app/specializations"
+      specializationsURL
     );
     const data = await res.json();
     const paths = data.map(({ id }) => ({ params: { id: `${id}` } }));
@@ -30,7 +34,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   try {
     const res = await fetch(
-      `https://medconnectback-production.up.railway.app/specializations/${params.id}`
+      `${specializationsURL}/${params.id}`
     );
     const data = await res.json();
     return {

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Button, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-const backendURL = "https://medconnectback-production.up.railway.app";
+const backendURL = process.env.PUBLIC_BACKEND_URL;
 const patientsURL = `${backendURL}/patients`;
 
 export default function EditPaciente({ setOpen, datos }) {
